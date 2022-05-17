@@ -7,22 +7,19 @@ import "./Expenses.css";
 const Expenses = (props) => {
   const [year, setYear] = useState(2021);
 
-  const filterExpenses = () =>
-    props.expenses.filter((expense) => expense.date.getFullYear() == year);
+  let filteredExpenses = props.expenses.filter(
+    (expense) => expense.date.getFullYear() == year
+  );
 
-  let filteredExpenses = filterExpenses();
-
-  const onYearChangeHandler = (yr) => {
-    setYear(yr);
-    filteredExpenses = filterExpenses();
-  };
-
+  // The conditional content below would be better moved out of the return statement. Keeping it here for now as an example of using &&
   return (
     <Card className="expenses">
-      <ExpensesFilter selectedYear={year} onYearChange={onYearChangeHandler} />
-      {filteredExpenses.map((expense) => (
-        <ExpenseItem key={expense.id} expense={expense} />
-      ))}
+      <ExpensesFilter selectedYear={year} onYearChange={setYear} />
+      {filteredExpenses.length === 0 && <p>No expenses for {year}</p>}
+      {filteredExpenses.length > 0 &&
+        filteredExpenses.map((expense) => (
+          <ExpenseItem key={expense.id} expense={expense} />
+        ))}
     </Card>
   );
 };
