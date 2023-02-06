@@ -49,15 +49,6 @@ const ExpenseForm = (props) => {
     });
   };
 
-  const resetHandler = (event) => {
-    event.preventDefault(); // prevent page reload
-    setUserInput({
-      title: "",
-      amount: "",
-      date: "",
-    });
-  };
-
   return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
@@ -91,7 +82,7 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
-        <button type="reset" onClick={resetHandler}>
+        <button type="reset" onClick={props.onCancel}>
           Cancel
         </button>
         <button type="submit">Add Expense</button>
