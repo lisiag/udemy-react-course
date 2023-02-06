@@ -21,7 +21,7 @@ const ExpenseForm = (props) => {
     setUserInput((prevState) => {
       return {
         ...prevState,
-        amount: event.target.value,
+        amount: +event.target.value,
       };
     });
   };
@@ -42,6 +42,15 @@ const ExpenseForm = (props) => {
       date: new Date(userInput.date),
     };
     props.onSaveExpenseData(expenseData);
+    setUserInput({
+      title: "",
+      amount: "",
+      date: "",
+    });
+  };
+
+  const resetHandler = (event) => {
+    event.preventDefault(); // prevent page reload
     setUserInput({
       title: "",
       amount: "",
@@ -82,6 +91,9 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="reset" onClick={resetHandler}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
